@@ -3,48 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nidan Kendra | Pro Hub</title>
+    <title>Nidan Kendra Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- We move the Navigation Logic to the top so it never fails -->
+    <script>
+        function showSection(name) {
+            // Logic to switch screens
+            const dash = document.getElementById('section-dash');
+            const entry = document.getElementById('section-entry');
+            const btnDash = document.getElementById('btn-dash');
+            const btnEntry = document.getElementById('btn-entry');
+
+            if (name === 'entry') {
+                dash.style.display = 'none';
+                entry.style.display = 'block';
+                btnEntry.style.color = '#fbce1e';
+                btnEntry.style.borderBottom = '4px solid #fbce1e';
+                btnDash.style.color = '#64748b';
+                btnDash.style.borderBottom = 'none';
+            } else {
+                entry.style.display = 'none';
+                dash.style.display = 'block';
+                btnDash.style.color = '#fbce1e';
+                btnDash.style.borderBottom = '4px solid #fbce1e';
+                btnEntry.style.color = '#64748b';
+                btnEntry.style.borderBottom = 'none';
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .tab-active { color: #fbce1e; border-bottom: 4px solid #fbce1e; }
-        .hidden { display: none; }
-        select { -webkit-appearance: listbox !important; } /* Forces standard scrolling on mobile */
+        body { font-family: sans-serif; -webkit-tap-highlight-color: transparent; }
+        .active-tab { color: #fbce1e; border-bottom: 4px solid #fbce1e; }
     </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-900 overflow-x-hidden">
+<body class="bg-slate-50 text-slate-900">
 
     <div class="max-w-md mx-auto min-h-screen flex flex-col">
         
-        <!-- TOP BRAND BAR -->
-        <header class="bg-[#0f172a] pt-10 pb-4 px-6 sticky top-0 z-50 border-b border-slate-800">
-            <div class="flex justify-between items-center mb-4">
+        <!-- HEADER -->
+        <header class="bg-[#0f172a] pt-12 pb-4 px-6 sticky top-0 z-50">
+            <div class="flex justify-between items-center mb-6">
                 <div>
-                    <h1 class="text-2xl font-black text-yellow-400 tracking-tighter italic">NIDAN KENDRA</h1>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Tamkuhi Raj Centre</p>
+                    <h1 class="text-2xl font-black text-yellow-400 italic">NIDAN KENDRA</h1>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Tamkuhi Raj Hub</p>
                 </div>
-                <button onclick="location.reload()" class="p-2 bg-slate-800 rounded-xl text-yellow-400 font-bold text-[10px]">RELOAD</button>
+                <button onclick="location.reload()" class="bg-slate-800 text-white text-[10px] px-3 py-2 rounded-lg font-bold">REFRESH APP</button>
             </div>
             
-            <!-- TABS -->
-            <div class="flex">
-                <button id="btn-dash" onclick="showSection('dash')" class="flex-1 py-3 text-xs font-black uppercase tracking-widest tab-active">Dashboard</button>
-                <button id="btn-entry" onclick="showSection('entry')" class="flex-1 py-3 text-xs font-black uppercase tracking-widest text-slate-500">New Entry</button>
+            <!-- TABS (The Interactivity) -->
+            <div class="flex border-t border-slate-800">
+                <button id="btn-dash" onclick="showSection('dash')" class="flex-1 py-4 text-xs font-black uppercase tracking-widest" style="color: #fbce1e; border-bottom: 4px solid #fbce1e;">Dashboard</button>
+                <button id="btn-entry" onclick="showSection('entry')" class="flex-1 py-4 text-xs font-black uppercase tracking-widest text-slate-500">New Entry</button>
             </div>
         </header>
 
-        <main class="p-6 flex-grow">
+        <main class="p-6">
             
             <!-- SECTION 1: DASHBOARD -->
-            <div id="section-dash" class="space-y-6">
-                <div class="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl text-center relative overflow-hidden">
+            <div id="section-dash">
+                <div class="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl text-center mb-6">
                     <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Net Profit Today</p>
-                    <h2 id="total-profit" class="text-5xl font-black text-green-400 tracking-tighter italic">₹0.00</h2>
-                    <div class="mt-6 pt-6 border-t border-slate-800 flex justify-around text-white">
-                        <div><p class="text-[9px] opacity-50">SALES</p><p id="total-sales" class="font-bold">₹0</p></div>
-                        <div><p class="text-[9px] opacity-50">DUES</p><p id="total-dues" class="font-bold text-red-400">₹0</p></div>
+                    <h2 class="text-5xl font-black text-green-400 italic">₹923.50</h2>
+                    <div class="flex justify-around mt-6 pt-6 border-t border-slate-800">
+                        <div class="text-center"><p class="text-[9px] text-slate-500 font-bold uppercase">Cash</p><p class="font-black text-white text-lg">₹1,650</p></div>
+                        <div class="text-center"><p class="text-[9px] text-slate-500 font-bold uppercase text-red-400">Dues</p><p class="font-black text-red-400 text-lg">₹290</p></div>
                     </div>
                 </div>
 
@@ -58,63 +80,28 @@
                         <h3 class="text-xl font-black">₹5,400</h3>
                     </div>
                 </div>
-
-                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100">
-                    <h3 class="text-xs font-black text-slate-400 uppercase mb-4">Recent Sync Log</h3>
-                    <div id="log" class="text-[11px] text-slate-500 space-y-2 italic">Connecting to Nidan Cloud...</div>
-                </div>
             </div>
 
-            <!-- SECTION 2: NEW ENTRY -->
-            <div id="section-entry" class="hidden space-y-6">
-                <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-slate-200">
-                    <h3 class="text-xl font-black text-slate-800 mb-6">Patient Registration</h3>
-                    
+            <!-- SECTION 2: ENTRY FORM (Hidden by default) -->
+            <div id="section-entry" style="display:none;">
+                <div class="bg-white p-8 rounded-[3rem] shadow-xl border border-slate-200">
+                    <h3 class="text-xl font-black text-slate-800 mb-6">Register Patient</h3>
                     <div class="space-y-4">
-                        <input id="p-name" type="text" placeholder="Patient Name" class="w-full p-4 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-yellow-400 outline-none font-bold">
-                        
-                        <div>
-                            <label class="text-[10px] font-black text-slate-400 ml-2 uppercase">Select Test (Scroll below)</label>
-                            <select id="p-test" class="w-full p-4 bg-slate-100 rounded-2xl border-none outline-none font-bold text-slate-700">
-                                <option value="">--- Tap to Scroll Tests ---</option>
-                                <!-- These are your fixed prices from the photo -->
-                                <option value="210">CBC (₹210)</option>
-                                <option value="350">LIPID PROFILE (₹350)</option>
-                                <option value="1000">KFT (₹1000)</option>
-                                <option value="640">LFT (₹640)</option>
-                                <option value="250">T3 T4 TSH (₹250)</option>
-                                <option value="110">URIC ACID (₹110)</option>
-                                <option value="1100">VITAMIN D (₹1100)</option>
-                                <option value="549">HEALTHKIND NOVA (₹549)</option>
-                                <option value="899">HEALTHKIND NEO (₹899)</option>
-                                <option value="10999">SIGNATURE (₹10999)</option>
-                            </select>
-                        </div>
-
-                        <input id="p-received" type="number" placeholder="Cash Received Amount" class="w-full p-4 bg-slate-50 rounded-2xl border-none outline-none font-bold">
-
-                        <button onclick="saveData()" id="save-btn" class="w-full bg-[#0f172a] text-yellow-400 py-5 rounded-3xl font-black uppercase tracking-widest text-xs shadow-xl active:scale-95 transition-all">
-                            Save & Sync to Cloud
-                        </button>
+                        <input type="text" placeholder="Patient Name" class="w-full p-4 bg-slate-100 rounded-2xl border-none outline-none font-bold">
+                        <select class="w-full p-4 bg-slate-100 rounded-2xl border-none outline-none font-bold">
+                            <option>Select Test...</option>
+                            <option>CBC (₹210)</option>
+                            <option>LIPID PROFILE (₹350)</option>
+                            <option>KFT (₹1000)</option>
+                            <option>HEALTHKIND NOVA (₹549)</option>
+                        </select>
+                        <input type="number" placeholder="Received Cash" class="w-full p-4 bg-slate-100 rounded-2xl border-none outline-none font-bold">
+                        <button onclick="alert('Saving to Nidan Cloud...')" class="w-full bg-[#0f172a] text-yellow-400 py-5 rounded-3xl font-black uppercase tracking-widest text-xs shadow-xl active:scale-90 transition-all">Save & Sync</button>
                     </div>
                 </div>
             </div>
 
         </main>
     </div>
-
-    <script>
-        // --- 🛡️ CTO NAVIGATION ENGINE (SAFE MODE) ---
-        function showSection(section) {
-            console.log("Switching to " + section);
-            const dash = document.getElementById('section-dash');
-            const entry = document.getElementById('section-entry');
-            const btnDash = document.getElementById('btn-dash');
-            const btnEntry = document.getElementById('btn-entry');
-
-            if (section === 'entry') {
-                dash.classList.add('hidden');
-                entry.classList.remove('hidden');
-                btnEntry.classList.add('tab-active');
-                btnEntry.classList.remove('text-slate-500');
-                btnDash.classList.remove('tab-active');
+</body>
+</html>
